@@ -49,33 +49,36 @@
 
 - (MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id )annotation {
 	
-	MKAnnotationView <EarthquakeLocationAnnotationView> *earthquakeLocationAnnotationView;
-	
-	NSString *annotationViewIdentifier = @"EQAnnotationView";
-	
-	earthquakeLocationAnnotationView = (MKAnnotationView <EarthquakeLocationAnnotationView> *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotationViewIdentifier];
-	
-	if (detailItem == nil) {
+	if ([annotation class] != [MKUserLocation class]) {
+		MKAnnotationView <EarthquakeLocationAnnotationView> *earthquakeLocationAnnotationView;
 		
-		if ( earthquakeLocationAnnotationView == nil ) {
-			earthquakeLocationAnnotationView = [[[AllEarthquakeLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewIdentifier] autorelease];
+		NSString *annotationViewIdentifier = @"EQAnnotationView";
+		
+		earthquakeLocationAnnotationView = (MKAnnotationView <EarthquakeLocationAnnotationView> *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotationViewIdentifier];
+		
+		if (detailItem == nil) {
+			
+			if ( earthquakeLocationAnnotationView == nil ) {
+				earthquakeLocationAnnotationView = [[[AllEarthquakeLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewIdentifier] autorelease];
+			} else {
+				earthquakeLocationAnnotationView.annotation = annotation;
+			}
+			
 		} else {
-			earthquakeLocationAnnotationView.annotation = annotation;
-		}
+			earthquakeLocationAnnotationView = [[DetailEarkquakeLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewIdentifier];
+		}	
 		
+		[earthquakeLocationAnnotationView setEnabled:YES];
+		
+		return earthquakeLocationAnnotationView;	
 	} else {
-		earthquakeLocationAnnotationView = [[DetailEarkquakeLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewIdentifier];
-	}	
-	
-	[earthquakeLocationAnnotationView setEnabled:YES];
-	
-	return earthquakeLocationAnnotationView;
+		return nil;
+	}
 	
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (self.mapView.userLocation.location) {
-		NSLog(@"Inside the if");
 		static CFAbsoluteTime lastTime = 0.0;
 		CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
 		MKCoordinateSpan span;
@@ -89,16 +92,14 @@
 		if((now - lastTime) > 15.0) { // 15 seconds
 			static CLLocation *oldLocation = nil;
 			if (oldLocation == nil) {
-				NSLog(@"Inside the if 2");
 				oldLocation = [[CLLocation alloc] initWithLatitude:self.mapView.userLocation.location.coordinate.latitude longitude:self.mapView.userLocation.location.coordinate.longitude];
 				region.center = oldLocation.coordinate;
 				[mapView setRegion:region animated:TRUE];
 				[mapView regionThatFits:region];
 				
 			} else {
-				NSLog(@"Inside the if 3");
 			    CLLocation *newLocation = [[CLLocation alloc] initWithLatitude:self.mapView.userLocation.location.coordinate.latitude longitude:self.mapView.userLocation.location.coordinate.longitude];
-			    CLLocationDistance distance = [newLocation getDistanceFrom:oldLocation];
+			    CLLocationDistance distance = [newLocation distanceFromLocation:oldLocation];
 				
 			    lastTime = now;
 			    NSString *test = [[NSString alloc] initWithFormat:@"CHANGE! Lat: %g°, Lon: %g°, Distanz: %gm", mapView.userLocation.location.coordinate.latitude, mapView.userLocation.location.coordinate.longitude, distance];
