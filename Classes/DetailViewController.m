@@ -47,7 +47,7 @@
     }        
 }
 
-- (MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id )annotation {
+- (MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation {
 	
 	if ([annotation class] != [MKUserLocation class]) {
 		MKAnnotationView <EarthquakeLocationAnnotationView> *earthquakeLocationAnnotationView;
@@ -65,7 +65,8 @@
 			}
 			
 		} else {
-			earthquakeLocationAnnotationView = [[DetailEarkquakeLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewIdentifier];
+			earthquakeLocationAnnotationView = [[[DetailEarkquakeLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewIdentifier] autorelease];
+			[self.mapView selectAnnotation:annotation animated:YES];
 		}	
 		
 		[earthquakeLocationAnnotationView setEnabled:YES];
@@ -136,9 +137,11 @@
 	[earthquakeAnnotation setTitle:detailItem.location];
 	[earthquakeAnnotation setSubtitle:[NSString stringWithFormat:@"%.1f", detailItem.magnitude]];
 	
+	
 	[mapView addAnnotation:earthquakeAnnotation];
 	[mapView setRegion:region animated:TRUE];
 	[mapView regionThatFits:region];
+	[self.mapView selectAnnotation:earthquakeAnnotation animated:YES];
 }
 
 - (void) zoomToUserLocation {
@@ -186,8 +189,6 @@
 	[self.mapView.userLocation addObserver:self forKeyPath:@"location" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:NULL];
 	
 	self.mapView.showsUserLocation = YES;
-	
-	//[mapView setShowsUserLocation:YES];
 	
 	[items release];
 	[activityIndicator release];
@@ -262,6 +263,7 @@
 
 #pragma mark -
 #pragma mark View lifecycle
+
 
 
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

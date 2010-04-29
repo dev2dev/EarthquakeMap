@@ -3,7 +3,7 @@
 
 @implementation DetailEarkquakeLocationAnnotationView
 
-- (id)initWithAnnotation:(id )annotation reuseIdentifier:(NSString *)reuseIdentifier {
+- (id)initWithAnnotation:(id)annotation reuseIdentifier:(NSString *)reuseIdentifier {
 	
 	MKPinAnnotationView *pinView = nil;
 	
@@ -14,10 +14,15 @@
 	}
 	
 	
-	pinView.pinColor = MKPinAnnotationColorPurple;
+	pinView.pinColor = MKPinAnnotationColorRed;
 	pinView.canShowCallout = YES;
 	pinView.animatesDrop = YES;
 	
+	[pinView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
+	
+	[pinView setCanShowCallout:YES];
+	[pinView setSelected:YES animated:YES];
+
 	return pinView;
 }
 
