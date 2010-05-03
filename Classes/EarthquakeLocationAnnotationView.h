@@ -4,7 +4,7 @@
 @protocol EarthquakeLocationAnnotationView <NSObject>
 
 @required
-- (id)initWithAnnotation:(id )annotation reuseIdentifier:(NSString *)reuseIdentifier;
+- (id)initWithAnnotation:(id) annotation reuseIdentifier:(NSString *)reuseIdentifier;
 
 @end
 

@@ -4,6 +4,7 @@
 #import "EarthquakeLocationAnnotation.h"
 #import "AllEarthquakeLocationAnnotationView.h"
 #import "DetailEarkquakeLocationAnnotationView.h"
+#import "EarthquakeWebViewController.h"
 
 @interface DetailViewController ()
 
@@ -66,6 +67,11 @@
 			
 		} else {
 			earthquakeLocationAnnotationView = [[[DetailEarkquakeLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewIdentifier] autorelease];
+			UIButton *button = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
+			[button addTarget:self action:@selector(test:) forControlEvents:UIControlEventTouchUpInside];  
+			
+			[earthquakeLocationAnnotationView setRightCalloutAccessoryView:button];
+			
 			[self.mapView selectAnnotation:annotation animated:YES];
 		}	
 		
@@ -75,6 +81,14 @@
 	} else {
 		return nil;
 	}
+	
+}
+
+- (void) test: (id) sender {
+	EarthquakeWebViewController *earthquakeWebViewController = [[EarthquakeWebViewController alloc] init];
+	[earthquakeWebViewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+	[earthquakeWebViewController setModalPresentationStyle:UIModalPresentationPageSheet];
+	[self presentModalViewController:earthquakeWebViewController animated:YES];
 	
 }
 

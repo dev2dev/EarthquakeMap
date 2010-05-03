@@ -1,9 +1,8 @@
 #import "DetailEarkquakeLocationAnnotationView.h"
 
-
 @implementation DetailEarkquakeLocationAnnotationView
 
-- (id)initWithAnnotation:(id)annotation reuseIdentifier:(NSString *)reuseIdentifier {
+- (id)initWithAnnotation:(id )annotation reuseIdentifier:(NSString *)reuseIdentifier {
 	
 	MKPinAnnotationView *pinView = nil;
 	
@@ -18,7 +17,6 @@
 	pinView.canShowCallout = YES;
 	pinView.animatesDrop = YES;
 	
-	[pinView setRightCalloutAccessoryView:[UIButton buttonWithType:UIButtonTypeDetailDisclosure]];
 	
 	[pinView setCanShowCallout:YES];
 	[pinView setSelected:YES animated:YES];
