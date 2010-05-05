@@ -68,7 +68,7 @@
 		} else {
 			earthquakeLocationAnnotationView = [[[DetailEarkquakeLocationAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewIdentifier] autorelease];
 			UIButton *button = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
-			[button addTarget:self action:@selector(test:) forControlEvents:UIControlEventTouchUpInside];  
+			[button addTarget:self action:@selector(clickOnDetailButton:) forControlEvents:UIControlEventTouchUpInside];  
 			
 			[earthquakeLocationAnnotationView setRightCalloutAccessoryView:button];
 			
@@ -84,7 +84,7 @@
 	
 }
 
-- (void) test: (id) sender {
+- (void) clickOnDetailButton: (id) sender {
 	EarthquakeWebViewController *earthquakeWebViewController = [[EarthquakeWebViewController alloc] initWithEarthquake:detailItem];
 	[earthquakeWebViewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 	[earthquakeWebViewController setModalPresentationStyle:UIModalPresentationFormSheet];

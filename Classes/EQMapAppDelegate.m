@@ -134,9 +134,8 @@ static NSString * const kGeoRSSPointElementName = @"georss:point";
     } else if ([elementName isEqualToString:kLinkElementName]) {
         NSString *relAttribute = [attributeDict valueForKey:@"rel"];
         if ([relAttribute isEqualToString:@"alternate"]) {
-            NSString *USGSWebLink = [attributeDict valueForKey:@"href"];
-            static NSString * const kUSGSBaseURL = @"http://earthquake.usgs.gov/";
-            self.currentEarthquakeObject.USGSWebLink = [kUSGSBaseURL stringByAppendingString:USGSWebLink];
+            self.currentEarthquakeObject.USGSWebLink = [attributeDict valueForKey:@"href"];
+			
         }
     } else if ([elementName isEqualToString:kTitleElementName] || [elementName isEqualToString:kUpdatedElementName] || [elementName isEqualToString:kGeoRSSPointElementName]) {
         accumulatingParsedCharacterData = YES;

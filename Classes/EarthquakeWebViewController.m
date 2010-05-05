@@ -3,16 +3,19 @@
 
 @implementation EarthquakeWebViewController
 
-@synthesize magLabel, nameLabel, earthquake, toolbar;
+@synthesize earthquake, toolbar, closeButton, webView;
 
 - (EarthquakeWebViewController*) initWithEarthquake:(Earthquake *)sentEarthquake {
 	self.earthquake = sentEarthquake;
 	return self;
 }
 
+- (IBAction) closeWindow: (id) sender {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 - (void) setLabels {
-	[nameLabel setText:earthquake.location];
-	[magLabel setText:[NSString stringWithFormat:@"%.1f", earthquake.magnitude]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:earthquake.USGSWebLink]]];
 }
 
 @end

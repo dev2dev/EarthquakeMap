@@ -29,6 +29,6 @@
 - (void) zoomToUserLocation;
 - (void) startLocation: (id) sender;
 - (void) stopLocation: (id) sender;
-- (void) test: (id) sender;
+- (void) clickOnDetailButton: (id) sender;
 
 @end
