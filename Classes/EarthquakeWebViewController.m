@@ -3,13 +3,16 @@
 
 @implementation EarthquakeWebViewController
 
-@synthesize magLabel, nameLabel, earthquake;
+@synthesize magLabel, nameLabel, earthquake, toolbar;
 
-- (void) initWithEarthquake:(Earthquake *)sentEarthquake {
+- (EarthquakeWebViewController*) initWithEarthquake:(Earthquake *)sentEarthquake {
 	self.earthquake = sentEarthquake;
-	
-	nameLabel.text = sentEarthquake.location;
-	magLabel.text = [NSString stringWithFormat:@"%i", sentEarthquake.magnitude];
+	return self;
+}
+
+- (void) setLabels {
+	[nameLabel setText:earthquake.location];
+	[magLabel setText:[NSString stringWithFormat:@"%.1f", earthquake.magnitude]];
 }
 
 @end

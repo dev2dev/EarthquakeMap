@@ -85,8 +85,12 @@
 }
 
 - (void) test: (id) sender {
-		//	EarthquakeWebViewController *earthquakeWebViewController = [[EarthquakeWebViewController alloc] initWithEarthquake:detailItem];
 	EarthquakeWebViewController *earthquakeWebViewController = [[EarthquakeWebViewController alloc] initWithEarthquake:detailItem];
+	[earthquakeWebViewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+	[earthquakeWebViewController setModalPresentationStyle:UIModalPresentationFormSheet];
+	[self presentModalViewController:earthquakeWebViewController animated:YES];
+	[earthquakeWebViewController setLabels];
+	
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
