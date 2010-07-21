@@ -5,7 +5,7 @@
 @class DetailViewController;
 @class Earthquake;
 
-@interface EQMapAppDelegate : NSObject <UIApplicationDelegate> {
+@interface EQMapAppDelegate : NSObject <UIApplicationDelegate, NSXMLParserDelegate> {
     
     UIWindow *window;
     

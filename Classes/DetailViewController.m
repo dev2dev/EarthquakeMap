@@ -36,6 +36,7 @@
  */
 - (void)setDetailItem:(id)newDetailItem {
     if (detailItem != newDetailItem) {
+		NSLog(@"setDetialItem");
         [detailItem release];
         detailItem = [newDetailItem retain];
         
@@ -49,7 +50,7 @@
 }
 
 - (MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation {
-	
+
 	if ([annotation class] != [MKUserLocation class]) {
 		MKAnnotationView <EarthquakeLocationAnnotationView> *earthquakeLocationAnnotationView;
 		
@@ -132,6 +133,8 @@
 
 
 - (void)configureView {
+	
+	NSLog(@"MapView");
 	
 	// remove all previous annotations.
 	

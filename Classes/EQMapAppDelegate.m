@@ -36,6 +36,7 @@
     NSAssert(self.earthquakeFeedConnection != nil, @"Failure to create URL connection.");
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	[window makeKeyAndVisible];
 	
 }
 
@@ -56,6 +57,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	NSLog(@"connection");
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;   
     if ([error code] == kCFURLErrorNotConnectedToInternet) {
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"No Connection Error", @"Error message displayed when not connected to the Internet.") forKey:NSLocalizedDescriptionKey];
@@ -75,6 +77,7 @@
 }
 
 - (void)parseEarthquakeData:(NSData *)data {
+	NSLog(@"ParseData");
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     self.currentParseBatch = [NSMutableArray array];
@@ -101,6 +104,7 @@
 }
 
 - (void)addEarthquakesToList:(NSArray *)earthquakes {
+	NSLog(@"add to list");
     [self.earthquakeList addObjectsFromArray:earthquakes];
 	if ([self.earthquakeList count] >= 100){
 		[rootViewController.tableView reloadData];

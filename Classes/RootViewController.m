@@ -88,7 +88,7 @@
     locationLabel.text = earthquake.location;
     dateLabel.text = [self.dateFormatter stringFromDate:earthquake.date];
     magnitudeLabel.text = [NSString stringWithFormat:@"%.1f", earthquake.magnitude];
-	
+		
 	return cell;
 }
 
